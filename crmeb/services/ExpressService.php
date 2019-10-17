@@ -7,21 +7,22 @@
 
 namespace crmeb\services;
 
-
+use think\facade\Request;
 use crmeb\services\HttpService;
 use crmeb\services\SystemConfigService;
 
 class ExpressService
 {
     protected static $api = [
-        'query' => 'https://wuliu.market.alicloudapi.com/kdi'
+        'query' => '/api/express/search'
     ];
 
     public static function query($no, $type = '')
     {
-        $appCode = SystemConfigService::config('system_express_app_code');
-        if (!$appCode) return false;
-        $res = HttpService::getRequest(self::$api['query'], compact('no', 'type'), ['Authorization:APPCODE ' . $appCode]);
+        // $appCode = SystemConfigService::config('system_express_app_code');
+        // if (!$appCode) return false;
+        $domain = Request::domain(1);
+        $res = HttpService::postRequest($domain.self::$api['query'], compact('no', 'type'));
         $result = json_decode($res, true) ?: false;
         return $result;
     }

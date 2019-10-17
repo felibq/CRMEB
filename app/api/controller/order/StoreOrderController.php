@@ -402,14 +402,15 @@ class StoreOrderController
         $cacheName = $uni.$order['delivery_id'];
         $result = CacheService::get($cacheName,null);
         if($result === NULL){
-            $result = ExpressService::query($order['delivery_id']);
+            $result = ExpressService::query($order['delivery_id'],$order['delivery_name']);
+            
             if(is_array($result) &&
                 isset($result['result']) &&
                 isset($result['result']['deliverystatus']) &&
                 $result['result']['deliverystatus'] >= 3)
                 $cacheTime = 0;
             else
-                $cacheTime = 1800;
+                $cacheTime = 3600;
             CacheService::set($cacheName,$result,$cacheTime);
         }
         $orderInfo = [];

@@ -109,6 +109,7 @@ Route::group(function () {
     Route::post('order/pay', 'order.StoreOrderController/pay')->name('orderPay'); //订单支付
     Route::post('order/product', 'order.StoreOrderController/product')->name('orderProduct'); //订单产品信息
     Route::post('order/comment', 'order.StoreOrderController/comment')->name('orderComment'); //订单评价
+    
     //活动---砍价
     Route::get('bargain/detail/:id', 'activity.StoreBargainController/detail')->name('bargainDetail');//砍价产品详情
     Route::post('bargain/start', 'activity.StoreBargainController/start')->name('bargainStart');//砍价开启
@@ -191,7 +192,8 @@ Route::group(function () {
 
     //物流公司
     Route::get('logistics', 'PublicController/logistics')->name('logistics');//物流公司列表
-
+    //物流
+    Route::Post('express/search','express.ExpressController/search')->name('expressSearch'); //查询物流信息
     //分享配置
     Route::get('share', 'PublicController/share')->name('share');//分享配置
 
